@@ -1,0 +1,51 @@
+{% extends 'employee/base.html' %}
+
+{% block title %}Employee List of Employee {{ employee.get_full_name }} ({{ employee.emp_no }}){% endblock %}
+{% block extra_head %}
+<style type="text/css">
+      h2 {position: relative}
+      tr.mousefocus {background-color: #A4A4A4 !important;}
+</style>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#employee_list_table').dataTable({
+            'bJQueryUI': true,
+            "aaSorting": [[0]],
+            'iDisplayLength': 25,
+            'sPaginationType': 'full_numbers',
+            'sAjaxSource': '{% url "dashboard-employee-list" %}',
+            'bProcessing': true,
+            'bServerSide': true,
+            'aoColumns': [
+                { 'sName': 'emp_no', 'sTitle': 'Employee Number', 'sWidth': '80px', 'bSortable': true },
+                { 'sName': 'first_name', 'sTitle': 'First Name', 'sWidth': '120px', 'bSortable': true },
+                { 'sName': 'last_name', 'sTitle': 'Last Name', 'sWidth': '120px', 'bSortable': true},
+                { 'sName': 'gender', 'sTitle': 'Gender', 'sWidth': '60px', 'bSortable': true},
+                { 'sName': 'title', 'sTitle': 'Title', 'sWidth': '120px', 'bSortable': false},
+                { 'sName': 'hire_date', 'sTitle': 'Hire Date', 'sWidth': '120px', 'bSortable': true },
+            ],
+            'fnRowCallback': function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                $('td:eq(0)', nRow).html('<a href="/employee/employee_detail/' + aData[0] + '/">' + aData[0] + '</a>');
+                $(nRow).mouseover(function() {
+                    $(this).addClass('mousefocus');
+                });
+                $(nRow).mouseout(function() {
+                    $(this).removeClass('mousefocus');
+                });
+                return nRow;
+            }
+        });
+    });
+</script>
+{% endblock %}
+{% block logo_title %}Employee List of Employee {{ employee.get_full_name }} ({{ employee.emp_no }}){% endblock %}
+{% block content %}
+    <hr />
+    <h2 id="employee_list_heading">Employee List</h2>
+    <table id="employee_list_table" style="width: 100%;">
+    <thead>
+    </thead>
+    <tbody>
+    </tbody>
+    </table>
+{% endblock %}

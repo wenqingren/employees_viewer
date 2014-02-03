@@ -1,0 +1,39 @@
+{% extends 'employee/base.html' %}
+
+{% block title %}Employee {{ employee.get_full_name }} ({{ employee.emp_no }}) Detail{% endblock%}
+{% block logo_title %}Employee {{ employee.get_full_name }} ({{ employee.emp_no }}) Detail{% endblock%}
+
+{% block content %}
+    <hr />
+    <table class='table table-hover'>
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Current Department</th>
+            <th>Current Job Title</th>
+            <th>Hire Date</th>
+            <th>Years with company</th>
+            <th>Birth Date</th>
+            <th>Age</th>
+            <th>Current Salary</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ employee.first_name }}</td>
+            <td>{{ employee.last_name }}</td>
+            <td>{{ employee.gender }}</td>
+            <td>{{ department }}</td>
+            <td>{{ title }}</td>
+            <td>{{ employee.hire_date|date:"d/m/Y" }}</td>
+            <td>{{ hire_years }}</td>
+            <td>{{ employee.birth_date|date:"d/m/Y" }}</td>
+            <td>{{ age_years }}</td>
+            <td>{{ salary }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
+
